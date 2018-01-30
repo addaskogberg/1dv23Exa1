@@ -32,7 +32,7 @@ data.then(function (html) {
 function parseHTML (html) {
   const dom = new JSDOM(html)
   // return Array.from(dom.window.document.querySelectorAll('a'))
-  console.log('test' + Array.from(dom.window.document.querySelectorAll('a')))
+  console.log('test' + Array.from(dom.window.document.querySelectorAll('a'))) // denna skrivs inte ut i terminalen varför????
 }
 
 function asyncRequest (url) {
