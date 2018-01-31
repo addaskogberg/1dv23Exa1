@@ -1,78 +1,22 @@
-
-const request = require('request')
-const JSDOM = require('jsdom').JSDOM
-
-// console.log(process.argv)
-let args = process.argv.slice(2)
-
-if (args.length === 0) {
-  console.log('ERROR: No arguments provided e.g "npm start <url>"')
-  process.exit(0)
-}
-const startURL = args[0]
-console.log(startURL)
-
-async function start (url) {
-  let data = await asyncRequest(url)
-  // console.log(data)
-  return data
-}
-
-let data = start(startURL)
-data.then(function (html) {
-  let links = parseHTML(html)
-  links = links.map(alinks => alinks.href)
-  if (links.length < 1) {
-    throw new Error('could not find any links')
-  }
-  console.log(links)
-}).catch(function (error) {
-  console.log(error.message)
-})
-
-function parseHTML (html) {
-  const dom = new JSDOM(html)
-  return Array.from(dom.window.document.querySelectorAll('a'))
-}
-// console.log(data)
-
-function asyncRequest (url) {
-  return new Promise(function (resolve, reject) {
-    request(url, function (error, response, body) {
-      if (error) {
-        reject(error)
-      }
-      resolve(body)
-    })
-  })
-}
-
 /*
+*Check which day or days all friends are available; if none - output this on screen
+*Get the available movies for that day(s)
+*Login to the restaurant web site and get the content
+*See when the three friends can eat. Think that they want to book a table minimum two hours after the movie starts.
+*Present the solution(s) as output in your terminal/console window (or as a HTML view)
+**[Optional] - Use the form for a user to book a table with your application
+*/
+'use strict'
+const request = require('request')
 
-data.then(function (html) {
-  let links = parseHTML(html)
-  links = links.map(alinks => alinks.href)
-  if (links.length < 1) {
-    throw new Error('could not find any links')
+var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
+
+request(url, function (error, response, html) {
+  if (error) {
+    return console.log(error)
   }
-}).catch(function (error) {
-  console.log(error.message)
+  if (response.statusCode !== 200) {
+    return console.log('Error code')
+  }
+  console.log(html)
 })
-
-function parseHTML (html) {
-  const dom = new JSDOM(html)
-  // return Array.from(dom.window.document.querySelectorAll('a'))
-  console.log('test' + Array.from(dom.window.document.querySelectorAll('a'))) // denna skrivs inte ut i terminalen varför????
-}
-
-function asyncRequest (url) {
-  return new Promise(function (resolve, reject) {
-    request(url, function (error, response, body) {
-      if (error) {
-        throw (error)
-      }
-      return body
-    })
-  })
-}
- */
