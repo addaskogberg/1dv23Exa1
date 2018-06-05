@@ -7,16 +7,20 @@
 **[Optional] - Use the form for a user to book a table with your application
 */
 'use strict'
-const request = require('request')
-
+var cherrio = require('cheerio')
+var fs = require('fs')
+var calendar = require('./calendar')
 var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
 
-request(url, function (error, response, html) {
+calendar.fetch(url, function (error, data) {
   if (error) {
     return console.log(error)
   }
-  if (response.statusCode !== 200) {
-    return console.log('Error code')
-  }
-  console.log(html)
+  var ul = cherrio.load(data)('ul').text().trim()
+  fs.appendFile('./dumpUl.txt', ul + '\n-------\n', function (error) {
+    if (error) {
+      return console.log('error writing file')
+    }
+    console.log('written to file')
+  })
 })

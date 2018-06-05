@@ -2,7 +2,7 @@
 const request = require('request')
 const JSDOM = require('jsdom').JSDOM
 
-// console.log(process.argv)
+console.log(process.argv)
 let args = process.argv.slice(2)
 
 if (args.length === 0) {
