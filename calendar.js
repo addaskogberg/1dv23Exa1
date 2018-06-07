@@ -6,15 +6,17 @@ module.exports = {
   fetch: fetch
 }
 
-function fetch (url, callback) {
-  request(url, function (error, response, html) {
-    if (error) {
-      return callback(error)
-    }
-    if (response.statusCode !== 200) {
-      return callback(new Error('Bad status code'))
-    }
-    return callback(null, html)
+function fetch (url) {
+  return new Promise(function (resolve, reject) {
+    request(url, function (error, response, html) {
+      if (error) {
+        return reject(error)
+      }
+      if (response.statusCode !== 200) {
+        return reject(new Error('Bad status code'))
+      }
+      resolve(html)
+    })
   })
 }
 

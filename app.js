@@ -7,11 +7,32 @@
 **[Optional] - Use the form for a user to book a table with your application
 */
 'use strict'
-var cherrio = require('cheerio')
-var fs = require('fs')
-var calendar = require('./calendar')
-var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
+// var cherrio = require('cheerio')
+// var fs = require('fs')
+// var calendar = require('./calendar')
+// var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
+var cinema = require('./cinema')
+// var url2 = process.argv[2] || 'http://vhost3.lnu.se:20080/cinema/'
 
+console.log(cinema)
+
+/*
+var ul
+calendar.fetch(url).then(function (data) {
+  console.log('1. fetched page')
+  url = calendar.ul(data)
+  return fs.appendFile('./dumpUl.txt', ul + '\n-------\n')
+}).then(function () {
+  console.log('2. wrong UL')
+  return calendar.fetch('http://vhost3.lnu.se:20080/calendar/' + ul)
+}).then(function () {
+  console.log('ready')
+}).catch(function (error) {
+  console.log(error)
+})
+ */
+
+/*
 calendar.fetch(url, function (error, data) {
   if (error) {
     return console.log(error)
@@ -23,4 +44,4 @@ calendar.fetch(url, function (error, data) {
     }
     console.log('written to file')
   })
-})
+}) */
