@@ -26,7 +26,9 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "jsdom": "^11.6.1",
+    "prompt-promise": "^1.0.3",
     "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "standard": "^10.0.3"
   }
 }
