@@ -7,16 +7,12 @@
 const request = require('request-promise')
 const cheerio = require('cheerio')
 
-console.log(process.argv)
-let args = process.argv.slice(2)
-
-if (args.length === 0) {
-  console.log('ERROR: No arguments provided e.g "npm start <url>"')
-  process.exit(0)
+module.exports = {
+  cinemaFilms: cinemaFilms
 }
 
 /**
- * checks what movies are available
+ * checks the films id and title
  *
  * @param {any} html
  * @returns movie id and movie title
@@ -73,25 +69,54 @@ function whatFilmIsOn (url, date, item, films) {
   })
 }
 
-const startURL = args[0]
-console.log(startURL)
-
-async function start (url) {
-  let data = await asyncRequest(url)
-  // console.log(data)
-  return data
-}
-
-let data = start(startURL)
-data.then(function (html) {
-  let links = parseHTML(html)
-  links = links.map(alinks => alinks.href)
-  if (links.length < 1) {
-    throw new Error('could not find any links')
-  }
-  console.log(links)
-}).catch(function (error) {
-  console.log(error.message)
-})
-
+/**
+ * what films are available on the dates all can go
+ *
+ * @param {any} url
+ * @param {any} dates
+ * @returns
+ */
 // console.log(data)
+function cinemaFilms (url, dates) { // 3
+  return new Promise(function (resolve, reject, error) {
+    let films = []
+    let movieAlternatives = {
+      url: url
+    }
+
+    request(movieAlternatives).then(function (html) {
+      return findMovieElements(html)
+    }).then(function (items) {
+      if (dates.length < 1) {
+        reject(error, 'Could not find a day')
+      }
+
+      let moviePromises = []
+
+      dates.forEach(function (date) {
+        items.forEach(function (items) {
+          moviePromises.push(whatFilmIsOn(url, date, items, films))
+        })
+      })
+
+      Promise.all(moviePromises).then(function () {
+        let presentFilms = []
+
+        films.forEach(function (film) {
+          if (film.status === 1) {
+            presentFilms.push(film)
+            console.log(film.title + 'är i cinama films')
+          }
+        })
+
+        if (presentFilms.length < 1) {
+          reject(error, 'No  available')
+        } else {
+          resolve(presentFilms)
+        }
+      }).catch(function (error) {
+        reject(error)
+      })
+    })
+  })
+}

@@ -4,7 +4,6 @@
  */
 
 'use strict'
-// var cinema = require('./cinema')
 var calendar = require('./calendar')
 
 const request = require('request-promise')
@@ -13,9 +12,9 @@ var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
 let calendarURL
 
 function validate (url) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject, error) {
     if (url.substr(0, 4) !== 'http') {
-     // reject(error)
+      reject(error, 'werong protocol')
     }
 
     request(url).then(function () {
