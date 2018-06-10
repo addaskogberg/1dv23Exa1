@@ -3,7 +3,9 @@ const request = require('request-promise')
 const cheerio = require('cheerio')
 
 module.exports = {
-  findURL: findURL
+  calendars: calendars,
+  dayForDate: dayForDate,
+  getLinks: getLinks
 }
 
 /**
@@ -12,7 +14,7 @@ module.exports = {
  * @param {any} url
  * @returns  a promise
  */
-function findURL (url) {
+function getLinks (url) {
   return new Promise(function (resolve, reject) {
     let options = {
       url: url
@@ -38,4 +40,90 @@ function findURL (url) {
       reject(error)
     })
   })
+}
+
+/**
+Gets the links in the calendar ie paul's, peter's amd , mary's
+*/
+function calendars (urls) {
+  return new Promise(function (resolve, reject) {
+    let calendarUrl = []
+    let newCalendarUrl = []
+
+    urls.forEach(function (url) {
+      calendarUrl.push(findInCalendar(url, newCalendarUrl))
+    })
+
+    Promise.all(calendarUrl).then(function () {
+      console.log(urls + 'skriver ut länk till kalendrar')
+      resolve(newCalendarUrl)
+    }).catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+/**
+ * Checkes What day are not ok/OK
+ *
+ * @param {any} url
+ * @param {any} friends
+ * @returns true or false
+ */
+function findInCalendar (url, friends) {
+  return new Promise(function (resolve, reject) {
+    let days = {
+      url: url
+    }
+
+    request(days).then(function (html) {
+      const control = cheerio.load(html)
+      let element = control('td')
+
+      let friday = control(element).first().text()
+      let saturday = control(element).first().next().text()
+      let sunday = control(element).first().next().next().text()
+
+      let person = {
+        name: control('h2').text(),
+        friday: friday !== '--',
+        saturday: saturday !== '--',
+        sunday: sunday !== '--'
+      }
+
+      console.log(person.saturday + 'skriver ut friends')
+      friends.push(person)
+      resolve()
+    }).catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
+/**
+ * checks what day number is awailable in everyones calendar
+ *
+ * @param {any} friends
+ * @returns the dateday
+ */
+function dayForDate (friends) {
+  let dateday = []
+
+  let friday, saturday, sunday
+
+  friends.forEach(function (person) {
+    friday = person.friday
+    saturday = person.saturday
+    sunday = person.sunday
+  })
+
+  if (friday) {
+    dateday.push('05')
+  } else if (saturday) {
+    dateday.push('06')
+  } else if (sunday) {
+    dateday.push('07')
+  }
+
+  return dateday
 }
