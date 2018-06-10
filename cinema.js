@@ -1,6 +1,6 @@
 'use strict'
-const request = require('request')
-const JSDOM = require('jsdom').JSDOM
+const request = require('request-promise')
+const cheerio = require('cheerio')
 
 console.log(process.argv)
 let args = process.argv.slice(2)
@@ -8,6 +8,29 @@ let args = process.argv.slice(2)
 if (args.length === 0) {
   console.log('ERROR: No arguments provided e.g "npm start <url>"')
   process.exit(0)
+}
+
+/**
+ * checks what movies are available
+ *
+ * @param {any} html
+ * @returns movie id and movie title
+ */
+function findMovieElements (html) {
+  let values = []
+  let control = cheerio.load(html)
+
+  let film = control('select[name=movie]').html()
+  control = cheerio.load(film)
+
+  control('option[value]').each(function (i, element) {
+    values.push({
+      id: control(element).val(),
+      title: control(element).text()
+    })
+  })
+
+  return values
 }
 const startURL = args[0]
 console.log(startURL)
@@ -30,10 +53,6 @@ data.then(function (html) {
   console.log(error.message)
 })
 
-function parseHTML (html) {
-  const dom = new JSDOM(html)
-  return Array.from(dom.window.document.querySelectorAll('a'))
-}
 // console.log(data)
 
 function asyncRequest (url) {

@@ -34,7 +34,7 @@ function getLinks (url) {
         URLS.push(URL)
       })
 
-      console.log(URLS + ' utskrift från calendar för att testa links')
+     // console.log(URLS + ' utskrift från calendar för att testa links')
       resolve(URLS)
     }).catch(function (error) {
       reject(error)
@@ -55,7 +55,7 @@ function calendars (urls) {
     })
 
     Promise.all(calendarUrl).then(function () {
-      console.log(urls + 'skriver ut länk till kalendrar')
+     // console.log(urls + 'skriver ut länk till kalendrar')
       resolve(newCalendarUrl)
     }).catch(function (error) {
       reject(error)
@@ -91,7 +91,7 @@ function findInCalendar (url, friends) {
         sunday: sunday !== '--'
       }
 
-      console.log(person.saturday + 'skriver ut friends')
+      // console.log(person.saturday + 'skriver ut friends')
       friends.push(person)
       resolve()
     }).catch(function (error) {
@@ -101,7 +101,7 @@ function findInCalendar (url, friends) {
 }
 
 /**
- * checks what day number is awailable in everyones calendar
+ * checks what day number is available in everyones calendar
  *
  * @param {any} friends
  * @returns the dateday
