@@ -19,6 +19,7 @@ function validate (url) {
     }
 
     request(url).then(function () {
+      console.log('skriver ut i validate')
       resolve()
     }).catch(function (error) {
       reject(error)
@@ -27,15 +28,13 @@ function validate (url) {
 }
 
 validate(url).then(function () {
-    // Get links to calendar, cinema, and restaurant from the front page
+    // url from first page
   return calendar.getLinks(url)
 }).then(function (links) {
-    // Store links to global variables
   calendarURL = links[0]
-
-    // Get links to the calendar page of each person
+    // persons calendarurl
   return calendar.getLinks(calendarURL)
 }).then(function (links) {
-    // Get all friends and their what their status is on each day
+    // calling get links function
   return calendar.calendars(links)
 })
