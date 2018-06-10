@@ -5,11 +5,12 @@
 
 'use strict'
 var calendar = require('./calendar')
-
+const cinema = require('./cinema')
 const request = require('request-promise')
 
 var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
 let calendarURL
+let cinemaURL
 
 function validate (url) {
   return new Promise(function (resolve, reject, error) {
@@ -36,4 +37,8 @@ validate(url).then(function () {
 }).then(function (links) {
     // calling get links function
   return calendar.calendars(links)
+}).then(function (friends) {
+  // what films can they watch together
+  let commonDates = calendar.dayForDate(friends)
+  return cinema.cinemaFilms(cinemaURL, commonDates)
 })
