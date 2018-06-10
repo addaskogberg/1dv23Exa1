@@ -32,6 +32,42 @@ function findMovieElements (html) {
 
   return values
 }
+
+/**
+ *
+ * What film is on at what time
+ *
+ * @param {any} url
+ * @param {any} date
+ * @param {any} item
+ * @param {any} films
+ * @returns  promise
+ */
+function whatFilmIsOn (url, date, item, films) {
+  url = url + '/check?day=' + date + '&movie=' + item.id
+
+  return new Promise(function (resolve, reject) {
+    let content = {
+      url: url
+    }
+
+    request(content).then(function (json) {
+      let Films = JSON.parse(json)
+
+      Films.forEach(function (film) {
+        film.time = film.time.substr(0, 2)
+        film.title = item.title
+        films.push(film)
+        console.log(film.time + 'skriver ut i what film is on')
+      })
+
+      resolve()
+    }).catch(function (error) {
+      reject(error)
+    })
+  })
+}
+
 const startURL = args[0]
 console.log(startURL)
 
@@ -54,14 +90,3 @@ data.then(function (html) {
 })
 
 // console.log(data)
-
-function asyncRequest (url) {
-  return new Promise(function (resolve, reject) {
-    request(url, function (error, response, body) {
-      if (error) {
-        reject(error)
-      }
-      resolve(body)
-    })
-  })
-}
