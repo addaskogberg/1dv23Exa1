@@ -1,3 +1,8 @@
+/**
+ * Examination1 1dv023
+ * Adda Skogberg as224wq
+ */
+
 'use strict'
 const request = require('request-promise')
 const cheerio = require('cheerio')
