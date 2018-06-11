@@ -50,7 +50,6 @@ isHTTP(url).then(function () {
 // when can we have dinner
   return restaurant.bookingSlots(restaurantURL, movies)
 }).then(function (bookings) {
-    // Print options
   printingToTerminal(bookings)
   process.exit()
 }).catch(function (error) {
@@ -60,7 +59,9 @@ isHTTP(url).then(function () {
 
 function printingToTerminal (posting) {
   for (let i = 0; i < posting.length; i += 1) {
-    console.log('Option: ' + (i + 1))
-    console.log('Movie: ' + posting[i].movie.title)
+    console.log('Option ' + (i + 1) + ':')
+    console.log('On ' + posting[i].day + ', there is a free table between ' + posting[i].table.from +
+    ' and ' + posting[i].table.to + ' after you have seen ' + posting[i].movie.title + ' which starts at ' + posting[i].movie.startTime)
+    console.log(' ')
   }
 }

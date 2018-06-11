@@ -34,7 +34,7 @@ function restaurantList (html) {
   return restaurantBookings
 }
 
-console.log(restaurantList + 'skriver ut restauranglista')
+// console.log(restaurantList + 'skriver ut restauranglista')
 
 // changes booking alternativs to comparable identifiers
 
