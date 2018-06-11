@@ -27,20 +27,20 @@ function getLinks (url) {
 
     request(options).then(function (html) {
       let find = cheerio.load(html)
-      let URL = []
-      let URLS
+      let paths = []
+      let path
 
       find('a').each(function (i, tag) {
-        URL = find(tag).attr('href')
-
-        if (!URL.startsWith('http')) {
-          URL = 'http://' + url.split('/')[2] + '/' + url.split('/')[3] + '/' + URL
+        path = find(tag).attr('href')
+        if (!path.startsWith('http')) {
+          path = 'http://' + url.split('/')[2] + '/' + url.split('/')[3] + '/' + path
         }
-        URLS.push(URL)
+        paths.push(path)
       })
 
-     // console.log(URLS + ' utskrift från calendar för att testa links')
-      resolve(URLS)
+      console.log(paths + ' utskrift från calendar för att testa links')
+
+      resolve(paths)
     }).catch(function (error) {
       reject(error)
     })
