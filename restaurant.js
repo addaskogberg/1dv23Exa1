@@ -4,6 +4,7 @@
  */
 
 'use strict'
+// find the booking alternatives for the restaurant. look at what time the films are and find a booking
 
 // analyze the  booking alternatives
 // booking alternatives
