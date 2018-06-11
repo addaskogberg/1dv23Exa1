@@ -48,9 +48,16 @@ isHTTP(url).then(function () {
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
   // when can we have dinner
-  console.log(restaurant.matchingMovieAndRestaruant(restaurantURL, movies))
+  // console.log(restaurant.matchingMovieAndRestaruant(restaurantURL, movies))
   return restaurant.matchingMovieAndRestaruant(restaurantURL, movies)
+}).then(function (bookings) {
+  // Present the alternatives to the user and ask for input on which should be booked.
+  printingToTerminal(bookings)
 }).catch(function (error) {
   console.log(error + ' kastar fel')
   process.exit()
 })
+
+function printingToTerminal (posting) {
+  console.log('skriver ut i printing To Terminal ' + posting)
+}

@@ -14,7 +14,7 @@ module.exports = {
 // find the booking alternatives for the restaurant. look at what time the films are and find a booking
 
 // analyze the  booking alternatives
-function restaurantList (html) { // nr1
+function restaurantList (html) {
   let restaurantBookings = []
   let control = cheerio.load(html)
   let findPage = control('input[name=group1]')
@@ -26,7 +26,7 @@ function restaurantList (html) { // nr1
   return restaurantBookings
 }
 
-console.log(restaurantList)
+console.log(restaurantList + 'skriver ut restauranglista')
 
 // changes booking alternativs to comparable identifiers
 
@@ -51,9 +51,15 @@ function convertString (str) { // nr2
   }
 }
 
-// find a restaurant booking suitable matching the movies what day and from - to
+/**
+ * what restaurant bookings are free after the movie
+ *
+ */
 
-// find a restaurant to match the film time
+/**
+ *
+ *
+ */
 function matchingMovieAndRestaruant () {
   console.log(' hitta en matchande film')
 }
