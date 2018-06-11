@@ -12,14 +12,14 @@ var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
 let calendarURL
 let cinemaURL
 
-function validate (url) {
+function isHTTP (url) {
   return new Promise(function (resolve, reject, error) {
     if (url.substr(0, 4) !== 'http') {
       reject(error, 'werong protocol')
     }
 
     request(url).then(function () {
-      console.log('skriver ut i validate')
+      console.log('skriver kollar HTTP')
       resolve()
     }).catch(function (error) {
       reject(error)
@@ -27,7 +27,7 @@ function validate (url) {
   })
 }
 
-validate(url).then(function () {
+isHTTP(url).then(function () {
     // url from first page
   return calendar.getLinks(url)
 }).then(function (links) {

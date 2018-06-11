@@ -110,7 +110,7 @@ function cinemaFilms (url, dates) { // 3
         })
 
         if (presentFilms.length < 1) {
-          reject(error, 'No  available')
+          reject(error, 'Nothing is  available')
         } else {
           resolve(presentFilms)
         }
