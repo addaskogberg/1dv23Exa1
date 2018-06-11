@@ -8,7 +8,7 @@
 const cheerio = require('cheerio')
 
 // find the booking alternatives for the restaurant. look at what time the films are and find a booking
-function restaurantList (html) { // nr1 findBookingAlternatives
+function restaurantList (html) { // nr1
   let restaurantBookings = []
   let control = cheerio.load(html)
   let findPage = control('input[name=group1]')
