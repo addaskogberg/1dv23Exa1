@@ -38,7 +38,7 @@ function getLinks (url) {
         paths.push(path)
       })
 
-      console.log(paths + ' utskrift från calendar för att testa links')
+      // console.log(paths + ' utskrift från calendar för att testa links')
 
       resolve(paths)
     }).catch(function (error) {

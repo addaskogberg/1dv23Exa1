@@ -21,7 +21,7 @@ function isHTTP (url) {
     }
 
     request(url).then(function () {
-      console.log('skriver kollar HTTP')
+      // console.log('skriver kollar HTTP')
       resolve()
     }).catch(function (error) {
       reject(error)
@@ -40,24 +40,27 @@ isHTTP(url).then(function () {
     // persons calendarurl
   return calendar.getLinks(calendarURL)
 }).then(function (links) {
-    // calling get links function
+    // calling function getlinks calendar status by day
   return calendar.calendars(links)
 }).then(function (friends) {
-  // what films can they watch together
+     // what films can they watch together
   let commonDates = calendar.dayForDate(friends)
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
-  // when can we have dinner
-  // console.log(restaurant.matchingMovieAndRestaruant(restaurantURL, movies))
-  return restaurant.matchingMovieAndRestaruant(restaurantURL, movies)
+// when can we have dinner
+  return restaurant.bookingSlots(restaurantURL, movies)
 }).then(function (bookings) {
-  // Present the alternatives to the user and ask for input on which should be booked.
+    // Print options
   printingToTerminal(bookings)
+  process.exit()
 }).catch(function (error) {
-  console.log(error + ' kastar fel')
+  console.log(error)
   process.exit()
 })
 
 function printingToTerminal (posting) {
-  console.log('skriver ut i printing To Terminal ' + posting)
+  for (let i = 0; i < posting.length; i += 1) {
+    console.log('Option: ' + (i + 1))
+    console.log('Movie: ' + posting[i].movie.title)
+  }
 }

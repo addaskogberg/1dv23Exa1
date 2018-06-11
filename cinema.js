@@ -59,7 +59,7 @@ function whatFilmIsOn (url, date, item, films) {
         film.time = film.time.substr(0, 2)
         film.title = item.title
         films.push(film)
-        console.log(film.time + 'skriver ut i what film is on')
+       // console.log(film.time + 'skriver ut i what film is on')
       })
 
       resolve()
@@ -105,7 +105,7 @@ function cinemaFilms (url, dates) { // 3
         films.forEach(function (film) {
           if (film.status === 1) {
             presentFilms.push(film)
-            console.log(film.title + 'är i cinama films')
+            // console.log(film.title + 'är i cinama films')
           }
         })
 
