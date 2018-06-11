@@ -9,7 +9,7 @@ const cinema = require('./cinema')
 const restaurant = require('./restaurant')
 const request = require('request-promise')
 
-var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/'
+var url = process.argv[2] || 'http://vhost3.lnu.se:20080/calendar/' || 'http://labcloudftk46.lnu.se:8080/cinema2'
 let calendarURL
 let cinemaURL
 let restaurantURL

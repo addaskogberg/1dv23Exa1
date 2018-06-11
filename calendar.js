@@ -60,7 +60,7 @@ function calendars (urls) {
     })
 
     Promise.all(calendarUrl).then(function () {
-     // console.log(urls + 'skriver ut länk till kalendrar')
+      console.log(urls + 'skriver ut länk till kalendrar')
       resolve(newCalendarUrl)
     }).catch(function (error) {
       reject(error)
@@ -91,12 +91,12 @@ function findInCalendar (url, friends) {
 
       let person = {
         name: control('h2').text(),
-        friday: friday !== '--',
-        saturday: saturday !== '--',
-        sunday: sunday !== '--'
+        friday: friday !== '--' && friday !== '-',
+        saturday: saturday !== '--' && saturday !== '-',
+        sunday: sunday !== '--' && sunday !== '-'
       }
 
-      // console.log(person.saturday + 'skriver ut friends')
+      console.log(person.friday + 'skriver ut friends')
       friends.push(person)
       resolve()
     }).catch(function (error) {
