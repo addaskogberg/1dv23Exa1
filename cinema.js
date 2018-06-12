@@ -105,7 +105,7 @@ function cinemaFilms (url, dates) { // 3
         films.forEach(function (film) {
           if (film.status === 1) {
             presentFilms.push(film)
-            // console.log(film.title + 'är i cinama films')
+          //  console.log(film.title + 'är i cinama films')
           }
         })
 
