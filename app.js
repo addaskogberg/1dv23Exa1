@@ -51,7 +51,7 @@ isHTTP(url).then(function () {
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
 // when can we have dinner
-  console.log(movies)
+  console.log(movies) // här blir det fel, får bara ut ett alternativ när det borde vara 2
   return restaurant.bookingSlots(restaurantURL, movies)
 }).then(function (bookings) {
   printingToTerminal(bookings)
