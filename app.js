@@ -36,18 +36,22 @@ isHTTP(url).then(function () {
   calendarURL = links[0]
   cinemaURL = links[1]
   restaurantURL = links[2]
+  console.log(restaurantURL)
 
     // persons calendarurl
   return calendar.getLinks(calendarURL)
 }).then(function (links) {
     // calling function getlinks calendar status by day
+  // console.log(links) den här funkar på båda
   return calendar.calendars(links)
 }).then(function (friends) {
      // what films can they watch together
   let commonDates = calendar.dayForDate(friends)
+ // console.log(friends) den här funkar på båda
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
 // when can we have dinner
+  console.log(movies)
   return restaurant.bookingSlots(restaurantURL, movies)
 }).then(function (bookings) {
   printingToTerminal(bookings)
@@ -58,6 +62,7 @@ isHTTP(url).then(function () {
 })
 
 function printingToTerminal (posting) {
+ // console.log(posting)
   for (let i = 0; i < posting.length; i += 1) {
     console.log('Option ' + (i + 1) + ':')
     console.log('On ' + posting[i].day + ', there is a free table between ' + posting[i].table.from +

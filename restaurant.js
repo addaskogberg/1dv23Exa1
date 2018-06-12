@@ -29,7 +29,7 @@ function restaurantList (html) {
     restaurantBookings.push(convertString(control(element).val()))
     // console.log(control + 'skriver control')
   })
- // console.log(restaurantBookings + 'är i restaurantList')
+  // console.log(restaurantBookings + 'är i restaurantList')
 
   return restaurantBookings
 }
@@ -118,7 +118,7 @@ function matchingMovieAndRestaruant (bookings, movies) {
         } else if (movie.day === '07') {
           dateDay = 'Sunday'
         }
-             // console.log('är i cinema' + movie.time)
+        // console.log('är i cinema' + movie.time)
 
         options.push({
                  // dayId: movie.day,
