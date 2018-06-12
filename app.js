@@ -30,7 +30,6 @@ function isHTTP (url) {
 }
 
 isHTTP(url).then(function () {
-    // url from first page
   return calendar.getLinks(url)
 }).then(function (links) {
   calendarURL = links[0]
@@ -40,24 +39,15 @@ isHTTP(url).then(function () {
 
     // persons calendarurl
   return calendar.getLinks(calendarURL)
-}).then(function (links) {
-    // calling function getlinks calendar status by day
-  // console.log(links) den här funkar på båda
+}).then(function (links) { // calling function getlinks calendar status by day
   return calendar.calendars(links)
 }).then(function (friends) {
-     // what films can they watch together
-  let commonDates = calendar.dayForDate(friends)
- // console.log(friends) den här funkar på båda
- // console.log(commonDates) // funkar på den först länken, på andra länken får jag varannan gång ´05' och då blir svaret undefined och varannan gång '06' och då skrivs option 1 ut. här borde vara 06 och 07
+  let commonDates = calendar.dayForDate(friends)// what films can they watch together
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
-// when can we have dinner
-  // console.log(movies) // här blir det fel, får 3 svar på första länken och 1 på andra länken
-  return restaurant.bookingSlots(restaurantURL, movies)
+  return restaurant.bookingSlots(restaurantURL, movies)// when can we have dinner
 }).then(function (bookings) {
   printingToTerminal(bookings)
-  // console.log(bookings) // här får jag 2 svar på första länken och 1 på andra länken
-  // process.exit()
 }).catch(function (error) {
   console.log(error)
   process.exit()

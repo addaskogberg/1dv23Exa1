@@ -48,8 +48,11 @@ function getLinks (url) {
 }
 
 /**
-Gets the links in the calendar ie paul's, peter's amd , mary's
-*/
+ * Gets the links in the calendar ie paul's, peter's amd , mary's
+ *
+ * @param {any} urls
+ * @returns url
+ */
 function calendars (urls) {
   return new Promise(function (resolve, reject) {
     let calendarUrl = []
@@ -73,7 +76,7 @@ function calendars (urls) {
  *
  * @param {any} url
  * @param {any} friends
- * @returns true or false
+ * @returns boolean
  */
 function findInCalendar (url, friends) {
   return new Promise(function (resolve, reject) {
@@ -109,7 +112,7 @@ function findInCalendar (url, friends) {
  * checks what day number is available in everyones calendar
  *
  * @param {any} friends
- * @returns the dateday
+ * @returns boolean
  */
 function dayForDate (friends) {
   let dateday = []
@@ -125,17 +128,17 @@ function dayForDate (friends) {
   })
 
   if (friday) {
-    console.log('friday ' + friday)
+   // console.log('friday ' + friday)
     dateday.push('05')
   }
   if (saturday) {
-    console.log('saturday ' + saturday)
+   // console.log('saturday ' + saturday)
     dateday.push('06')
   }
   if (sunday) {
-    console.log('sundagy ' + sunday)
+   // console.log('sundagy ' + sunday)
     dateday.push('07')
   }
-  console.log(dateday + ' skriver ut dateday')
+  // console.log(dateday + ' skriver ut dateday')
   return dateday
 }

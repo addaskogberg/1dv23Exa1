@@ -42,7 +42,7 @@ function findMovieElements (html) {
  * @param {any} date
  * @param {any} item
  * @param {any} films
- * @returns  promise
+ * @returns  films
  */
 function whatFilmIsOn (url, date, item, films) {
   url = url + '/check?day=' + date + '&movie=' + item.id
@@ -59,7 +59,6 @@ function whatFilmIsOn (url, date, item, films) {
         film.time = film.time.substr(0, 2)
         film.title = item.title
         films.push(film)
-        // console.log(film.title + 'skriver ut i what film is on')
       })
 
       resolve()
@@ -74,9 +73,8 @@ function whatFilmIsOn (url, date, item, films) {
  *
  * @param {any} url
  * @param {any} dates
- * @returns
+ * @returns the films to see
  */
-// console.log(data)
 function cinemaFilms (url, dates) { // 3
   return new Promise(function (resolve, reject, error) {
     let films = []
@@ -105,7 +103,7 @@ function cinemaFilms (url, dates) { // 3
         films.forEach(function (film) {
           if (film.status === 1) {
             presentFilms.push(film)
-          //  console.log(film.title + 'är i cinama films')
+           // console.log(film.title + 'är i cinama films')
           }
         })
 

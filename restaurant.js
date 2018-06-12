@@ -12,10 +12,8 @@ module.exports = {
   bookingSlots: bookingSlots
 }
 
-// find the booking alternatives for the restaurant. look at what time the films are and find a booking
-
 /**
- * Takes the html and looks for
+ * Takes the html and looks for what data is in the element
  *
  * @param {any} html
  * @returns
@@ -24,19 +22,20 @@ function restaurantList (html) {
   let restaurantBookings = []
   let control = cheerio.load(html)
   let findPage = control('input[name=group1]')
-  // console.log(control + 'skriver control')
   control(findPage).each(function (i, element) {
     restaurantBookings.push(convertString(control(element).val()))
-    // console.log(control + 'skriver control')
+    // console.log(convertString(control(element).val()))
   })
-  // console.log(restaurantBookings + 'är i restaurantList')
 
   return restaurantBookings
 }
 
-// console.log(restaurantList + 'skriver ut restauranglista')
-
-// changes booking alternativs to comparable identifiers
+/**
+ *  changes booking alternativs to comparable identifiers
+ *
+ * @param {any} str
+ * @returns string of number 05 06 or 07
+ */
 
 function convertString (str) { // nr2
   let day = str.substr(0, 3)
@@ -45,9 +44,9 @@ function convertString (str) { // nr2
 
   if (day === 'fri') {
     day = '05'
-  } else if (day === 'sat') {
+  } if (day === 'sat') {
     day = '06'
-  } else if (day === 'sun') {
+  } if (day === 'sun') {
     day = '07'
   }
 
@@ -60,7 +59,13 @@ function convertString (str) { // nr2
 }
 
 let jar = request.jar()
-// log on to the restaurant booking
+
+/**
+ * // log on to the restaurant booking
+ *
+ * @param {any} url
+ * @returns object
+ */
 function login (url) {
   let options = {
     url: url + '/login',
@@ -69,13 +74,15 @@ function login (url) {
     resolveWithFullResponse: true,
     form: {username: 'zeke', password: 'coys'}
   }
-
   return request.post(options)
 }
 
 /**
  * what restaurant bookings are free after the movie
  *
+ * @param {any} url
+ * @param {any} movies
+ * @returns
  */
 function bookingSlots (url, movies) {
   return new Promise(function (resolve, reject, error) {
@@ -96,11 +103,11 @@ function bookingSlots (url, movies) {
 }
 
 /**
- *
+ * When to eat
  *
  * @param {any} bookings
  * @param {any} movies
- * @returns
+ * @returns object
  */
 
 function matchingMovieAndRestaruant (bookings, movies) {
@@ -113,23 +120,18 @@ function matchingMovieAndRestaruant (bookings, movies) {
         let dateDay = ''
         if (movie.day === '05') {
           dateDay = 'Friday'
-        } else if (movie.day === '06') {
+        } if (movie.day === '06') {
           dateDay = 'Saturday'
-        } else if (movie.day === '07') {
+        } if (movie.day === '07') {
           dateDay = 'Sunday'
         }
-        // console.log('är i cinema' + movie.time)
-
         options.push({
-                 // dayId: movie.day,
           day: dateDay,
           movie: {
-                     // id: movie.movie,
             title: movie.title,
             startTime: movie.time
           },
           table: {
-                     // id: booking.value,
             from: booking.from + ':00',
             to: booking.to + ':00'
           }
