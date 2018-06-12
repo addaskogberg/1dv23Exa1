@@ -59,7 +59,7 @@ function whatFilmIsOn (url, date, item, films) {
         film.time = film.time.substr(0, 2)
         film.title = item.title
         films.push(film)
-       // console.log(film.time + 'skriver ut i what film is on')
+        // console.log(film.title + 'skriver ut i what film is on')
       })
 
       resolve()

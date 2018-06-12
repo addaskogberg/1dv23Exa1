@@ -36,7 +36,7 @@ isHTTP(url).then(function () {
   calendarURL = links[0]
   cinemaURL = links[1]
   restaurantURL = links[2]
-  console.log(restaurantURL)
+ // console.log(restaurantURL)
 
     // persons calendarurl
   return calendar.getLinks(calendarURL)
@@ -48,21 +48,23 @@ isHTTP(url).then(function () {
      // what films can they watch together
   let commonDates = calendar.dayForDate(friends)
  // console.log(friends) den här funkar på båda
+ // console.log(commonDates) // funkar på den först länken, på andra länken får jag varannan gång ´05' och då blir svaret undefined och varannan gång '06' och då skrivs option 1 ut. här borde vara 06 och 07
   return cinema.cinemaFilms(cinemaURL, commonDates)
 }).then(function (movies) {
 // when can we have dinner
-  console.log(movies) // här blir det fel, får bara ut ett alternativ när det borde vara 2
+  // console.log(movies) // här blir det fel, får 3 svar på första länken och 1 på andra länken
   return restaurant.bookingSlots(restaurantURL, movies)
 }).then(function (bookings) {
   printingToTerminal(bookings)
-  process.exit()
+  // console.log(bookings) // här får jag 2 svar på första länken och 1 på andra länken
+  // process.exit()
 }).catch(function (error) {
   console.log(error)
   process.exit()
 })
 
 function printingToTerminal (posting) {
- // console.log(posting)
+  // console.log(posting)
   for (let i = 0; i < posting.length; i += 1) {
     console.log('Option ' + (i + 1) + ':')
     console.log('On ' + posting[i].day + ', there is a free table between ' + posting[i].table.from +

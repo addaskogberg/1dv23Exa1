@@ -38,7 +38,7 @@ function getLinks (url) {
         paths.push(path)
       })
 
-      // console.log(paths + ' utskrift från calendar för att testa links')
+     // console.log(paths + ' utskrift från calendar för att testa links') // ser ok ut samma resultat i båda
 
       resolve(paths)
     }).catch(function (error) {
@@ -60,7 +60,7 @@ function calendars (urls) {
     })
 
     Promise.all(calendarUrl).then(function () {
-     // console.log(urls + 'skriver ut länk till kalendrar')
+     // console.log(urls + 'skriver ut länk till kalendrar') // ser ok ut samma resultat i båda
       resolve(newCalendarUrl)
     }).catch(function (error) {
       reject(error)
@@ -96,7 +96,7 @@ function findInCalendar (url, friends) {
         sunday: sunday !== '--' && sunday !== '-'
       }
 
-      // console.log(person.friday + 'skriver ut friends')
+    // console.log(person.sunday + '    skriver ut friends') // ser ok ut samma resultat i båda
       friends.push(person)
       resolve()
     }).catch(function (error) {
@@ -114,21 +114,28 @@ function findInCalendar (url, friends) {
 function dayForDate (friends) {
   let dateday = []
 
-  let friday, saturday, sunday
+  let friday = true
+  let saturday = true
+  let sunday = true
 
   friends.forEach(function (person) {
-    friday = person.friday
-    saturday = person.saturday
-    sunday = person.sunday
+    friday = friday && person.friday
+    saturday = saturday && person.saturday
+    sunday = sunday && person.sunday
   })
 
   if (friday) {
+    console.log('friday ' + friday)
     dateday.push('05')
-  } else if (saturday) {
+  }
+  if (saturday) {
+    console.log('saturday ' + saturday)
     dateday.push('06')
-  } else if (sunday) {
+  }
+  if (sunday) {
+    console.log('sundagy ' + sunday)
     dateday.push('07')
   }
-
+  console.log(dateday + ' skriver ut dateday')
   return dateday
 }
